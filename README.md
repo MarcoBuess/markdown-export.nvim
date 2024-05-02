@@ -28,7 +28,11 @@ With [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ## ⚙️ Configuration
 
-TODO
+```lua
+{
+  stylesheet = "" -- Path to custom css stylesheet. Uses /css/styles.css by default
+}
+```
 
 ## 🚀 Usage
 
