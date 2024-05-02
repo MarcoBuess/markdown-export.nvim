@@ -39,7 +39,7 @@ M.export_html = function()
 
   vim.fn.jobstart(cmd)
 
-  vim.notify("Create HTML export at [" .. out_file .. "]")
+  vim.notify("Created HTML export at [" .. out_file .. "]")
 end
 
 M.export_pdf = function()
