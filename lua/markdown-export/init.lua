@@ -43,15 +43,42 @@ M.export_html = function()
 end
 
 M.export_pdf = function()
-  vim.notify("PDF export is not implemented yet", vim.log.levels.WARN)
+  if not util.is_saved() then
+    vim.notify("Please save the current buffer before exporting.", vim.log.levels.WARN)
+    return
+  elseif not util.is_md_file() then
+    vim.notify("Not a valid markdown file.", vim.log.levels.WARN)
+    return
+  end
 
-  -- if not util.is_saved() then
-  --   vim.notify("Please save the current buffer before exporting.", vim.log.levels.WARN)
-  --   return
-  -- elseif not util.is_md_file() then
-  --   vim.notify("Not a valid markdown file.", vim.log.levels.WARN)
-  --   return
-  -- end
+  local out_file = vim.fn.fnameescape(vim.fn.expand("%:r")) .. ".pdf"
+  local args = {
+    "-s", -- Standalone
+    "-f", -- Input file type
+    "markdown",
+    "-t", -- Output file type
+    "html5",
+    "-o", -- Output file path
+    out_file,
+    vim.fn.fnameescape(vim.fn.expand("%")), -- Input file path
+    "-c", -- Css styles
+    options.stylesheet,
+    "--embed-resources",
+    "--quiet",
+    "-V",
+    "margin-top=0mm",
+    "-V",
+    "margin-left=0mm",
+    "-V",
+    "margin-right=0mm",
+    "-V",
+    "margin-bottom=0mm",
+  }
+  local cmd = { "pandoc", unpack(args) }
+
+  vim.fn.jobstart(cmd)
+
+  vim.notify("Created PDF export at [" .. out_file .. "]")
 end
 
 return M

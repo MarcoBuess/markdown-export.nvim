@@ -5,7 +5,7 @@
 ## ✨ Features
 
 - [x] Export to `HTML`
-- [ ] Export to `PDF`
+- [x] Export to `PDF`
 - [ ] Export to `DOCX`
 
 ## ⚡Requirements
